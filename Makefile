@@ -37,11 +37,21 @@ GH_TAGNAME=	${DISTVERSION}
 NO_BUILD=	yes
 NO_ARCH=	yes
 
+OPTIONS_DEFINE=	DISK NETWORK TLS
+
+DISK_DESC=	Disk check integration
+NETWORK_DESC=	Network check integration
+TLS_DESC=	TLS check integration
+
+DISK_VARS=	integrations+=disk conffiles+=disk
+NETWORK_VARS=	integrations+=network conffiles+=network
+TLS_VARS=	integrations+=tls conffiles+=tls
+
 # find integrations-core -name setup.py | awk -F\/ '{print $2}' | sort | uniq | grep -v datadog_checks_dev | tr '\n' ' '
-INTEGRATIONS=	tls network datadog_checks_base
+INTEGRATIONS=	datadog_checks_base
 
 # find integrations-core -name conf.yaml.example | awk -F\/ '{print $2}' | sort | uniq | grep -v datadog_checks_dev | tr '\n' ' '
-CONFFILES=	tls network
+CONFFILES=
 
 do-install:
 	${MKDIR} ${STAGEDIR}${ETCDIR}
