@@ -39,7 +39,7 @@ GH_TAGNAME=	${DISTVERSION}
 NO_BUILD=	yes
 NO_ARCH=	yes
 
-OPTIONS_DEFINE=	APACHE CONSUL COREDNS DIRECTORY DISK DNS MYSQL NETWORK NGINX PHP POSTFIX PROCESS SSH SYS_CORE SYS_SWAP TCP TLS
+OPTIONS_DEFINE=	APACHE CONSUL COREDNS DIRECTORY DISK DNS MYSQL NETWORK NGINX PHP POSTFIX PROCESS REDIS SSH SYS_CORE SYS_SWAP TCP TLS
 
 OPTIONS_SUB=	yes
 
@@ -55,6 +55,7 @@ NGINX_DESC=	Nginx check integration
 PHP_DESC=	PHP-fpm check integration
 POSTFIX_DESC=	Postfix check integration
 PROCESS_DESC=	Process check integration
+REDIS_DESC=	Redis check integration
 SSH_DESC=	SSH check integration
 SYS_CORE_DESC=	System Core check integration
 SYS_SWAP_DESC=	System Swap check integration
@@ -73,6 +74,7 @@ NGINX_VARS=	integrations+=nginx conffiles+=nginx
 PHP_VARS=	integrations+=php_fpm conffiles+=php_fpm
 POSTFIX_VARS=	integrations+=postfix conffiles+=postfix
 PROCESS_VARS=	integrations+=process conffiles+=process
+REDIS_VARS=	integrations+=redis conffiles+=redis
 SSH_VARS=	integrations+=ssh conffiles+=ssh
 SYS_CORE_VARS=	integrations+=system_core conffiles+=system_core
 SYS_SWAP_VARS=	integrations+=system_swap conffiles+=system_swap
@@ -93,6 +95,7 @@ MYSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cryptography>0:security/py-cryptograph
 NETWORK_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 PHP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}flup6>0:www/py-flup6@${PY_FLAVOR}
 PROCESS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
+REDIS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}redis>0:databases/py-redis
 SSH_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}paramiko>0:security/py-paramiko@${PY_FLAVOR}
 SYS_CORE_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 SYS_SWAP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
