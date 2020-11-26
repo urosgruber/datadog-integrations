@@ -12,7 +12,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools>0:devel/py-setuptools@${PY_FLAVOR}
 
-RUN_DEPENDS=	datadog>=${DISTVERSION}:sysutils/datadog \
+RUN_DEPENDS=	datadog-agent>=${DISTVERSION}:sysutils/datadog-agent \
 		${PYTHON_PKGNAMEPREFIX}botocore>0:devel/py-botocore@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}cryptography>0:security/py-cryptography@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pysocks>0:net/py-pysocks@${PY_FLAVOR} \
@@ -39,14 +39,18 @@ GH_TAGNAME=	${DISTVERSION}
 NO_BUILD=	yes
 NO_ARCH=	yes
 
-OPTIONS_DEFINE=	DISK MYSQL NETWORK TLS
+OPTIONS_DEFINE=	DISK DNS MYSQL NETWORK TLS
+
+OPTIONS_SUB=	yes
 
 DISK_DESC=	Disk check integration
+DNS_DESC=	DNS check integration
 MYSQL_DESC=	MySQL check integration
 NETWORK_DESC=	Network check integration
 TLS_DESC=	TLS check integration
 
 DISK_VARS=	integrations+=disk conffiles+=disk
+DNS_VARS=	integrations+=dns_check conffiles+=dns_check
 MYSQL_VARS=	integrations+=mysql conffiles+=mysql
 NETWORK_VARS=	integrations+=network conffiles+=network
 TLS_VARS=	integrations+=tls conffiles+=tls
@@ -58,11 +62,14 @@ INTEGRATIONS=	datadog_checks_base
 CONFFILES=
 
 DISK_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
+DNS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dnspython>0:dns/py-dnspython@${PY_FLAVOR}
 MYSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cryptography>0:security/py-cryptography@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pymysql>0:databases/py-pymysql@${PY_FLAVOR}
 NETWORK_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 TLS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cryptography>0:security/py-cryptography@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}service_identity>0:security/py-service_identity@${PY_FLAVOR}
+
+.include <bsd.port.options.mk>
 
 do-install:
 	${MKDIR} ${STAGEDIR}${ETCDIR}
