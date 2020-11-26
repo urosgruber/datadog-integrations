@@ -39,10 +39,11 @@ GH_TAGNAME=	${DISTVERSION}
 NO_BUILD=	yes
 NO_ARCH=	yes
 
-OPTIONS_DEFINE=	CONSUL COREDNS DIRECTORY DISK DNS MYSQL NETWORK TLS
+OPTIONS_DEFINE=	APACHE CONSUL COREDNS DIRECTORY DISK DNS MYSQL NETWORK NGINX PHP POSTFIX PROCESS SSH SYS_CORE SYS_SWAP TCP TLS
 
 OPTIONS_SUB=	yes
 
+APACHE_DESC=	Apache check integration
 CONSUL_DESC=	Consul check integration
 COREDNS_DESC=	CoreDNS check integration
 DIRECTORY_DESC=	Directory check integration
@@ -50,8 +51,17 @@ DISK_DESC=	Disk check integration
 DNS_DESC=	DNS check integration
 MYSQL_DESC=	MySQL check integration
 NETWORK_DESC=	Network check integration
+NGINX_DESC=	Nginx check integration
+PHP_DESC=	PHP-fpm check integration
+POSTFIX_DESC=	Postfix check integration
+PROCESS_DESC=	Process check integration
+SSH_DESC=	SSH check integration
+SYS_CORE_DESC=	System Core check integration
+SYS_SWAP_DESC=	System Swap check integration
+TCP_DESC=	TCP check integration
 TLS_DESC=	TLS check integration
 
+APACHE_VARS=	integrations+=apache conffiles+=apache
 CONSUL_VARS=	integrations+=consul conffiles+=consul
 COREDNS_VARS=	integrations+=coredns conffiles+=coredns
 DIRECTORY_VARS=	integrations+=directory conffiles+=directory
@@ -59,6 +69,14 @@ DISK_VARS=	integrations+=disk conffiles+=disk
 DNS_VARS=	integrations+=dns_check conffiles+=dns_check
 MYSQL_VARS=	integrations+=mysql conffiles+=mysql
 NETWORK_VARS=	integrations+=network conffiles+=network
+NGINX_VARS=	integrations+=nginx conffiles+=nginx
+PHP_VARS=	integrations+=php_fpm conffiles+=php_fpm
+POSTFIX_VARS=	integrations+=postfix conffiles+=postfix
+PROCESS_VARS=	integrations+=process conffiles+=process
+SSH_VARS=	integrations+=ssh conffiles+=ssh
+SYS_CORE_VARS=	integrations+=system_core conffiles+=system_core
+SYS_SWAP_VARS=	integrations+=system_swap conffiles+=system_swap
+TCP_VARS=	integrations+=tcp_check conffiles+=tcp_check
 TLS_VARS=	integrations+=tls conffiles+=tls
 
 # find integrations-core -name setup.py | awk -F\/ '{print $2}' | sort | uniq | grep -v datadog_checks_dev | tr '\n' ' '
@@ -73,6 +91,11 @@ DNS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dnspython>0:dns/py-dnspython@${PY_FLAVOR
 MYSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cryptography>0:security/py-cryptography@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pymysql>0:databases/py-pymysql@${PY_FLAVOR}
 NETWORK_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
+PHP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}flup6>0:www/py-flup6@${PY_FLAVOR}
+PROCESS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
+SSH_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}paramiko>0:security/py-paramiko@${PY_FLAVOR}
+SYS_CORE_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
+SYS_SWAP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 TLS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cryptography>0:security/py-cryptography@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}service_identity>0:security/py-service_identity@${PY_FLAVOR}
 
