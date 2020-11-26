@@ -39,10 +39,12 @@ GH_TAGNAME=	${DISTVERSION}
 NO_BUILD=	yes
 NO_ARCH=	yes
 
-OPTIONS_DEFINE=	DIRECTORY DISK DNS MYSQL NETWORK TLS
+OPTIONS_DEFINE=	CONSUL COREDNS DIRECTORY DISK DNS MYSQL NETWORK TLS
 
 OPTIONS_SUB=	yes
 
+CONSUL_DESC=	Consul check integration
+COREDNS_DESC=	CoreDNS check integration
 DIRECTORY_DESC=	Directory check integration
 DISK_DESC=	Disk check integration
 DNS_DESC=	DNS check integration
@@ -50,6 +52,8 @@ MYSQL_DESC=	MySQL check integration
 NETWORK_DESC=	Network check integration
 TLS_DESC=	TLS check integration
 
+CONSUL_VARS=	integrations+=consul conffiles+=consul
+COREDNS_VARS=	integrations+=coredns conffiles+=coredns
 DIRECTORY_VARS=	integrations+=directory conffiles+=directory
 DISK_VARS=	integrations+=disk conffiles+=disk
 DNS_VARS=	integrations+=dns_check conffiles+=dns_check
