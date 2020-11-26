@@ -39,16 +39,18 @@ GH_TAGNAME=	${DISTVERSION}
 NO_BUILD=	yes
 NO_ARCH=	yes
 
-OPTIONS_DEFINE=	DISK DNS MYSQL NETWORK TLS
+OPTIONS_DEFINE=	DIRECTORY DISK DNS MYSQL NETWORK TLS
 
 OPTIONS_SUB=	yes
 
+DIRECTORY_DESC=	Directory check integration
 DISK_DESC=	Disk check integration
 DNS_DESC=	DNS check integration
 MYSQL_DESC=	MySQL check integration
 NETWORK_DESC=	Network check integration
 TLS_DESC=	TLS check integration
 
+DIRECTORY_VARS=	integrations+=directory conffiles+=directory
 DISK_VARS=	integrations+=disk conffiles+=disk
 DNS_VARS=	integrations+=dns_check conffiles+=dns_check
 MYSQL_VARS=	integrations+=mysql conffiles+=mysql
@@ -61,6 +63,7 @@ INTEGRATIONS=	datadog_checks_base
 # find integrations-core -name conf.yaml.example | awk -F\/ '{print $2}' | sort | uniq | grep -v datadog_checks_dev | tr '\n' ' '
 CONFFILES=
 
+DIRECTORY_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}scandir>0:sysutils/py-scandir@${PY_FLAVOR}
 DISK_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 DNS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dnspython>0:dns/py-dnspython@${PY_FLAVOR}
 MYSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cryptography>0:security/py-cryptography@${PY_FLAVOR} \
