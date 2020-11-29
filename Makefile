@@ -74,8 +74,8 @@ NGINX_VARS=	integrations+=nginx conffiles+=nginx
 PHP_VARS=	integrations+=php_fpm conffiles+=php_fpm
 POSTFIX_VARS=	integrations+=postfix conffiles+=postfix
 PROCESS_VARS=	integrations+=process conffiles+=process
-REDIS_VARS=	integrations+=redis conffiles+=redis
-SSH_VARS=	integrations+=ssh conffiles+=ssh
+REDIS_VARS=	integrations+=redisdb conffiles+=redisdb
+SSH_VARS=	integrations+=ssh_check conffiles+=ssh_check
 SYS_CORE_VARS=	integrations+=system_core conffiles+=system_core
 SYS_SWAP_VARS=	integrations+=system_swap conffiles+=system_swap
 TCP_VARS=	integrations+=tcp_check conffiles+=tcp_check
