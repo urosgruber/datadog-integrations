@@ -1,4 +1,4 @@
-# $FreeBSD$
+# $FreeBSD: head/sysutils/datadog-integrations/Makefile 560794 2021-01-08 16:36:02Z mikael $
 
 PORTNAME=	datadog-integrations
 DISTVERSION=	7.23.0
@@ -31,6 +31,9 @@ USES=		python:3.7+
 
 ETCDIR=		${PREFIX}/etc/datadog
 
+USERS=		datadog
+GROUPS=		${USERS}
+
 USE_GITHUB=	yes
 GH_ACCOUNT=	DataDog
 GH_PROJECT=	integrations-core
@@ -38,6 +41,9 @@ GH_TAGNAME=	${DISTVERSION}
 
 NO_BUILD=	yes
 NO_ARCH=	yes
+
+PLIST_SUB+=	USER=${USERS} \
+		GROUP=${GROUPS}
 
 OPTIONS_DEFINE=	APACHE CONSUL COREDNS DIRECTORY DISK DNS MYSQL NETWORK NGINX PHP POSTFIX PROCESS REDIS SSH SYS_CORE SYS_SWAP TCP TLS
 

@@ -7,5 +7,5 @@
 -            if err_code == socket.EAI_NODATA or err_code == socket.EAI_NONAME:
 +            if err_code == socket.EAI_NONAME:
                  raise socket.error('Unable to resolve host, check your DNS: {}'.format(message))  # noqa: G
- 
+
              raise
