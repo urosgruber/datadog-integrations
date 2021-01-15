@@ -28,19 +28,18 @@ RUN_DEPENDS=	datadog-agent>=7.24.1:sysutils/datadog-agent \
 		${PYTHON_PKGNAMEPREFIX}typing-extensions>0:devel/py-typing-extensions@${PY_FLAVOR}
 
 USES=		python:3.7+
-
-ETCDIR=		${PREFIX}/etc/datadog
-
-USERS=		datadog
-GROUPS=		${USERS}
-
 USE_GITHUB=	yes
 GH_ACCOUNT=	DataDog
 GH_PROJECT=	integrations-core
 GH_TAGNAME=	${DISTVERSION}
 
-NO_BUILD=	yes
+ETCDIR=		${PREFIX}/etc/datadog
+
 NO_ARCH=	yes
+NO_BUILD=	yes
+
+USERS=		datadog
+GROUPS=		${USERS}
 
 PLIST_SUB+=	USER=${USERS} \
 		GROUP=${GROUPS}
@@ -97,7 +96,7 @@ DIRECTORY_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}scandir>0:sysutils/py-scandir@${PY
 DISK_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 DNS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}dnspython>0:dns/py-dnspython@${PY_FLAVOR}
 MYSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cryptography>0:security/py-cryptography@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}pymysql>0:databases/py-pymysql@${PY_FLAVOR}
+			${PYTHON_PKGNAMEPREFIX}pymysql>0:databases/py-pymysql@${PY_FLAVOR}
 NETWORK_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 PHP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}flup6>0:www/py-flup6@${PY_FLAVOR}
 PROCESS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
@@ -106,7 +105,7 @@ SSH_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}paramiko>0:security/py-paramiko@${PY_FLA
 SYS_CORE_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 SYS_SWAP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psutil>0:sysutils/py-psutil@${PY_FLAVOR}
 TLS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cryptography>0:security/py-cryptography@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}service_identity>0:security/py-service_identity@${PY_FLAVOR}
+			${PYTHON_PKGNAMEPREFIX}service_identity>0:security/py-service_identity@${PY_FLAVOR}
 
 .include <bsd.port.options.mk>
 
@@ -114,7 +113,7 @@ do-install:
 	${MKDIR} ${STAGEDIR}${ETCDIR}
 	${MKDIR} ${STAGEDIR}${ETCDIR}/conf.d
 
-	# Install core-integrations
+# Install core-integrations
 .for dir in ${INTEGRATIONS}
 	(cd ${WRKSRC}/${dir}; \
 	${PYTHON_CMD} setup.py bdist; \
@@ -122,7 +121,7 @@ do-install:
 .endfor
 
 post-install:
-	# Install core-integrations
+# Install core-integrations
 .for dir in ${CONFFILES}
 	(cd ${WRKSRC}/${dir}; \
 	${MV} datadog_checks/${dir}/data ${STAGEDIR}${ETCDIR}/conf.d/${dir}.d)
